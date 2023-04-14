@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-// import ContactForm from './ContactForm/ContactForm';
+import { Component } from 'react';
+import shortid from 'shortid';
+
 // import { nanoid } from 'nanoid';
 import ContactList from './ContactList/ContactList';
+import ContactForm from './ContactForm';
 
 // import style from './App.module.css';
 
@@ -38,6 +40,17 @@ class App extends Component {
   //   }));
   };
 
+    addTodo = ({ name, number }) => {
+    const contact = {
+      id: shortid.generate(),
+      name: name,
+      number: number,
+    };
+    this.setState(prevState => ({
+      contacts: [contact, ...prevState.contacts],
+    }));
+  };
+
   deleteContact = todoId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== todoId),
@@ -46,7 +59,7 @@ class App extends Component {
 
   render() {
     const { contacts } = this.state;
-    
+
     return (
       <div
         style={{
@@ -62,6 +75,8 @@ class App extends Component {
       >
         <h1>Phonebook</h1>
         {/* <ContactForm onSubmit={this.addContact} /> */}
+        <ContactForm onSubmit={this.addTodo} />
+        <h2>Contacts</h2>
         <div>All contacts: {contacts.length}</div>
         <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
       </div>
