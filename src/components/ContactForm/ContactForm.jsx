@@ -1,5 +1,4 @@
 import { Component } from 'react';
-// import { nanoid } from 'nanoid';
 import style from './ContactForm.module.css';
 
 // class ContactForm extends Component {
@@ -81,7 +80,7 @@ class ContactForm extends Component {
     e.preventDefault();
 
     const { onSubmit } = this.props;
-    onSubmit && onSubmit(this.state);
+    onSubmit(this.state);
     this.resetForm();
   };
 
@@ -94,10 +93,11 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <form className={style.editor} onSubmit={this.handleSubmit}>
+      <form className={style.form} onSubmit={this.handleSubmit}>
         <label>
           Name
           <input
+            className={style.inputName}
             value={this.state.name}
             onChange={this.handleChange('name')}
             type="text"
@@ -110,6 +110,7 @@ class ContactForm extends Component {
         <label>
           Number
           <input
+            className={style.inputNumber}
             value={this.state.number}
             onChange={this.handleChange('number')}
             type="tel"

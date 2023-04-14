@@ -1,11 +1,9 @@
 import { Component } from 'react';
 import shortid from 'shortid';
 import ContactForm from './ContactForm';
-// import { nanoid } from 'nanoid';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter';
-
-// import style from './App.module.css';
+import style from './App.module.css';
 
 class App extends Component {
   state = {
@@ -43,9 +41,10 @@ class App extends Component {
 
     // addTodo = ({ name, number }) => {
     addContact = ({ name, number }) => {
+    const normalizedName = name.toLowerCase();
     let isAdded = false;
     this.state.contacts.forEach(el => {
-      if (el.name === name) {
+      if (el.name.toLowerCase() === normalizedName) {
         alert(`${name} is already in contacts`);
         isAdded = true;
       }
@@ -59,7 +58,7 @@ class App extends Component {
       number: number,
     };
     this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts],
+      contacts: [...prevState.contacts, contact],
     }));
   };
 
@@ -90,7 +89,6 @@ class App extends Component {
     return (
       <div
         style={{
-          height: '100vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -104,8 +102,8 @@ class App extends Component {
         {/* <ContactForm onSubmit={this.addContact} /> */}
         {/* <ContactForm onSubmit={this.addTodo} /> */}
         <ContactForm onSubmit={this.addContact} />
-        <h2>Contacts</h2>
-        <div>All contacts: {contacts.length}</div>
+        <h2 className={style.titleContacts}>Contacts</h2>
+        <div className={style.allContacts}>All contacts: {contacts.length}</div>
         {/* <ContactList contacts={contacts} onDeleteContact={this.deleteContact} /> */}
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactList
