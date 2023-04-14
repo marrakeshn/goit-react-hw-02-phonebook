@@ -41,7 +41,18 @@ class App extends Component {
   //   }));
   };
 
-    addTodo = ({ name, number }) => {
+    // addTodo = ({ name, number }) => {
+    addContact = ({ name, number }) => {
+    let isAdded = false;
+    this.state.contacts.forEach(el => {
+      if (el.name === name) {
+        alert(`${name} is already in contacts`);
+        isAdded = true;
+      }
+    });
+    if (isAdded) {
+      return;
+    }
     const contact = {
       id: shortid.generate(),
       name: name,
@@ -91,7 +102,8 @@ class App extends Component {
       >
         <h1>Phonebook</h1>
         {/* <ContactForm onSubmit={this.addContact} /> */}
-        <ContactForm onSubmit={this.addTodo} />
+        {/* <ContactForm onSubmit={this.addTodo} /> */}
+        <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         <div>All contacts: {contacts.length}</div>
         {/* <ContactList contacts={contacts} onDeleteContact={this.deleteContact} /> */}
